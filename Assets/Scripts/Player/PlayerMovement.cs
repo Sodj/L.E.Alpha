@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour {
 
-	public float jumpForce = 5;
-    public float speed = 10;
-    public float moveInput;
+	public float jumpForce = 7;
+    public float speed = 5;
+    private float moveInput;
     public Rigidbody2D rb;
 
-    public bool isGrounded;
+    private bool isGrounded;
     public float checkRadius = 0.1f;
     public Transform feetPos;
     public LayerMask whatIsGround; // baby don't hurt me .. don't hurt me .. no more
@@ -25,9 +25,12 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-    private void Update() {
+    void Update() {
         // Check if player is on ground .. true if the 'feet position' overlaps with a 'ground' by a minimum of 'checkRadius'
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
+
+        moveInput = Input.GetAxis("Horizontal"); // if pressing right: 1 if pressing left: -1 else 0
+        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
         
         // Jump on 'space' down
 		if(isGrounded && Input.GetKeyDown(KeyCode.Space)){
@@ -62,8 +65,6 @@ public class PlayerMovement : MonoBehaviour {
 
     // For physics actions
 	void FixedUpdate() {
-        moveInput = Input.GetAxis("Horizontal"); // if pressing right: 1 if pressing left: -1 else 0
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
 
 		// if(isGrounded && Input.GetKeyDown(KeyCode.Space)){
         //     rb.AddForce(transform.up * jumpForce);
