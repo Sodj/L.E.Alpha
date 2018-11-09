@@ -8,7 +8,7 @@ public class Player : MonoBehaviour {
     public float jumpForce;
     public float speed;
     public float moveInput;
-    public Rigidbody2D rigidbody;
+    public Rigidbody2D rb;
 
     public bool isGrounded;
     public float checkRadius;
@@ -19,14 +19,9 @@ public class Player : MonoBehaviour {
     public float jumpTime;
     public bool isJumping;
 
-    public GameObject deathSound;
-    public GameObject bgMusic;
-    public float deathTime = 3;
-    public bool isDead = false;
-
 	// Use this for initialization
 	void Start () {
-		rigidbody = GetComponent<Rigidbody2D>();
+		rb = GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame
@@ -36,7 +31,7 @@ public class Player : MonoBehaviour {
         
         // Jump on 'space' down
 		if(isGrounded && Input.GetKeyDown(KeyCode.Space)){
-            rigidbody.velocity = Vector2.up * jumpForce;
+            rb.velocity = Vector2.up * jumpForce;
             isJumping = true;
             jumpTime = maxJumpTime;
         }
@@ -44,7 +39,7 @@ public class Player : MonoBehaviour {
         // Go higher while 'space' is still down
         if(isJumping && Input.GetKey(KeyCode.Space)){
             if(jumpTime > 0){
-                rigidbody.velocity = Vector2.up * jumpForce;
+                rb.velocity = Vector2.up * jumpForce;
                 jumpTime -= Time.deltaTime;
             }
             else isJumping = false;
@@ -60,25 +55,18 @@ public class Player : MonoBehaviour {
         else if(moveInput > 0) transform.eulerAngles = new Vector3(0,0,0);
 
         // Reset after falling
-        if(!isDead && transform.position.y < -8){
-            deathSound.SetActive(true);
-            bgMusic.SetActive(false);
-            isDead = true;
-            deathTime = 3;
+        if(transform.position.y < -8){
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        if(isDead) deathTime -= Time.deltaTime;
-        if(isDead && deathTime <= 0) {deathTime = 3; SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);}
     }
 
     // For physics actions
 	void FixedUpdate() {
         moveInput = Input.GetAxis("Horizontal"); // if pressing right: 1 if pressing left: -1 else 0
-        rigidbody.velocity = new Vector2(moveInput * speed, rigidbody.velocity.y);
+        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
 
 		// if(isGrounded && Input.GetKeyDown(KeyCode.Space)){
-        //     rigidbody.AddForce(transform.up * jumpForce);
+        //     rb.AddForce(transform.up * jumpForce);
         // }
 	}
-
-    void dostuff(GameObject go){}
 }

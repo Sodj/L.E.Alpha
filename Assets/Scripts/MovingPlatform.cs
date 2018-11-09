@@ -1,16 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using LEAlpha;
 
-public class Saw : MonoBehaviour {
+public class MovingPlatform : MonoBehaviour {
 
     public float leftX;
     public float rightX;
-    public float speed;
+    public float speed = 5;
     private string movingTo;
     private Vector2 targetPos;
-    private int angle=0;
 
     void Start() {
         // move right
@@ -19,8 +17,6 @@ public class Saw : MonoBehaviour {
     }
 
     void Update() {
-        transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
-        angle = angle>=360? 0 : angle+5;
 
         // Reached the far right
         if(movingTo=="right" && transform.position.x == rightX){
@@ -36,12 +32,12 @@ public class Saw : MonoBehaviour {
         }
         transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
     }
+    
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.CompareTag("Player")) other.transform.parent = this.transform;
+    }
 
-    void OnTriggerEnter2D(Collider2D other){
-
-        if(other.CompareTag("Player")){
-            Lib.TakeDamage(1);
-            Debug.Log("player took 1 damage");
-        }
+    private void OnCollisionExit2D(Collision2D other) {
+       if(other.gameObject.CompareTag("Player")) other.transform.parent = null;
     }
 }
