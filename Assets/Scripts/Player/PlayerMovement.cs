@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour {
 
+    public int lifePoints = 100;
 	public float jumpForce = 7;
     public float speed = 5;
     private float moveInput;
