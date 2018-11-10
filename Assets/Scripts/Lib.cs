@@ -8,6 +8,7 @@ namespace LEAlpha
     public class Lib : MonoBehaviour {
 
         public static int HP = 6;
+        public static int initialHP = HP;
         public static GameObject damageSound;
         public static GameObject player;
 
@@ -30,7 +31,7 @@ namespace LEAlpha
 
             // Reset if HP == 0
             if(HP <= 0) {
-                HP = 3;
+                HP = initialHP;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
