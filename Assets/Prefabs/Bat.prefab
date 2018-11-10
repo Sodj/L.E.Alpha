@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 95128226033360880}
   - component: {fileID: 61539545565355190}
   m_Layer: 0
-  m_Name: bat_sprite_0
+  m_Name: Bat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.6599998, y: 1.8799999}
+    oldSize: {x: 1.8299999, y: 0.93999994}
     newSize: {x: 3.6599998, y: 1.8799999}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
