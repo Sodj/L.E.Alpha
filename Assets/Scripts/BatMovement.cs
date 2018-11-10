@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using LEAlpha;
 
 public class BatMovement : MonoBehaviour {
 
@@ -46,4 +45,11 @@ public class BatMovement : MonoBehaviour {
 		movingTo = MOVE_Down;
 		return new Vector2(transform.position.x, bottomPos);
 	}
+
+	void OnTriggerEnter2D(Collider2D other){
+
+        if(other.CompareTag("Player")){
+            Lib.TakeDamage(10);
+        }
+    }
 }
