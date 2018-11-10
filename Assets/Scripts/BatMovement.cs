@@ -4,7 +4,7 @@ using LEAlpha;
 public class BatMovement : MonoBehaviour {
 
 	public static int MOVE_UP = 1;
-	public static int MOVE_Down = -1;
+	public static int MOVE_DOWN = -1;
 	public float topLimit = 4;
     public float bottomLimit = 4;
 	public float speed = 4f;
@@ -42,7 +42,7 @@ public class BatMovement : MonoBehaviour {
 	}
 
 	Vector2 moveDown(){
-		movingTo = MOVE_Down;
+		movingTo = MOVE_DOWN;
 		return new Vector2(transform.position.x, bottomPos);
 	}
 
