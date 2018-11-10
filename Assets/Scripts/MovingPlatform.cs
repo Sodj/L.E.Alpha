@@ -19,13 +19,13 @@ public class MovingPlatform : MonoBehaviour {
     void Update() {
 
         // Reached the far right
-        if(movingTo=="right" && transform.position.x == rightX){
+        if(movingTo=="right" && transform.position.x >= rightX){
             // move left
             movingTo = "left";
             targetPos = new Vector2(leftX, transform.position.y);
         }
         // Reached the far left
-        else if(movingTo=="left" && transform.position.x == leftX){
+        else if(movingTo=="left" && transform.position.x <= leftX){
             // move right
             movingTo = "right";
             targetPos = new Vector2(rightX, transform.position.y);
