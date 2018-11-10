@@ -7,13 +7,14 @@ namespace LEAlpha
 {
     public class Lib : MonoBehaviour {
 
-        public static int HP = 3;
+        public static int HP = 6;
         public static GameObject damageSound;
         public static GameObject player;
 
         public static void TakeDamage(int damage){
             // Play sound
-            player = GameObject.Find("pecman");
+            //player = GameObject.Find("pecman");
+            player = GameObject.Find("player");
             Player playerScript = player.GetComponent<Player>();
             
             damageSound = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/DamageSound.prefab",typeof(GameObject));

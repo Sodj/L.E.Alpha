@@ -4,32 +4,74 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour {
 
-    public float leftX;
-    public float rightX;
+    public float distance;
+    public bool horizontal = true;
+
+    public bool Lshape = false;
+    public float distance2;
     public float speed = 5;
+
     private string movingTo;
     private Vector2 targetPos;
+    private Vector2 startPos;
+    private bool isGoing;
 
     void Start() {
-        // move right
-        movingTo = "right";
-        targetPos = new Vector2(rightX, transform.position.y);
+        startPos = new Vector2(transform.position.x, transform.position.y);
+        isGoing = true;
     }
 
     void Update() {
 
-        // Reached the far right
-        if(movingTo=="right" && transform.position.x >= rightX){
-            // move left
-            movingTo = "left";
-            targetPos = new Vector2(leftX, transform.position.y);
+        if(!Lshape && horizontal){
+            // Reached the start
+            if(transform.position.x <= startPos.x){
+                // move right
+                targetPos = new Vector2(startPos.x + distance, transform.position.y);
+            }
+            // Reached the end
+            else if (transform.position.x >= startPos.x + distance){
+                // move left
+                targetPos = new Vector2(startPos.x, startPos.y);
+            }
         }
-        // Reached the far left
-        else if(movingTo=="left" && transform.position.x <= leftX){
-            // move right
-            movingTo = "right";
-            targetPos = new Vector2(rightX, transform.position.y);
+
+        else if(!Lshape){
+            // Reached the start
+            if (transform.position.y <= startPos.y){
+                // move up
+                targetPos = new Vector2(startPos.x, transform.position.y + distance);
+            }
+            // Reached the end
+            else if (transform.position.y >= startPos.y + distance){
+                // move down
+                targetPos = new Vector2(startPos.x, startPos.y);
+            }
         }
+
+        else if(Lshape){
+            // Reached the start
+            if (transform.position.y <= startPos.y){
+                // move up
+                isGoing = true;
+                targetPos = new Vector2(startPos.x, transform.position.y + distance);
+            }
+            // Reached the turning point
+            if (transform.position.x <= startPos.x && transform.position.y >= startPos.y + distance){
+                // move left
+                if (isGoing) targetPos = new Vector2(startPos.x + distance2, startPos.y + distance);
+                // move down
+                else targetPos = new Vector2(startPos.x, startPos.y);
+            }
+            // Reached the end
+            if (transform.position.x >= startPos.x + distance2){
+                // move right
+                Debug.Log("reached the end");
+                isGoing = false;
+                targetPos = new Vector2(startPos.x, startPos.y + distance);
+            }
+        }
+
         transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
     }
     

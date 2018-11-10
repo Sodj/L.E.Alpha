@@ -46,10 +46,9 @@ public class BatMovement : MonoBehaviour {
 		return new Vector2(transform.position.x, bottomPos);
 	}
 
-	void OnTriggerEnter2D(Collider2D other){
-
-        if(other.CompareTag("Player")){
-            Lib.TakeDamage(10);
+    void OnCollisionEnter2D(Collision2D collision){
+        if (collision.gameObject.CompareTag("Player")){
+            Lib.TakeDamage(1);
         }
     }
 }
