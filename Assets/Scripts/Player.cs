@@ -55,7 +55,7 @@ public class Player : MonoBehaviour {
         else if(moveInput > 0) transform.eulerAngles = new Vector3(0,0,0);
 
         // Reset after falling
-        if(transform.position.y < -8){
+        if(transform.position.y < -80){
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
