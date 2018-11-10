@@ -8,7 +8,7 @@ public class Spikes : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other){
 
         if(other.CompareTag("Player")){
-            // Lib.TakeDamage(1);
+            Lib.TakeDamage(1);
             Debug.Log("player took 1 damage");
         }
     }
